@@ -1,9 +1,5 @@
-export const statsQuery = `
+const statsQuery = `
     query userProblemsSolved($username: String!) {
-      allQuestionsCount {
-        difficulty
-        count
-      }
       matchedUser(username: $username) {
         problemsSolvedBeatsStats {
           difficulty
@@ -19,7 +15,7 @@ export const statsQuery = `
     }
 `;
 
-export const publicProfileQuery = `
+const publicProfileQuery = `
     query userPublicProfile($username: String!) {
       matchedUser(username: $username) {
         contestBadge {
@@ -55,3 +51,16 @@ export const publicProfileQuery = `
       }
     }
 `;
+
+const languageStatsQuery = `
+query languageStats($username: String!) {
+  matchedUser(username: $username) {
+    languageProblemCount {
+      languageName
+      problemsSolved
+    }
+  }
+}
+  `;
+
+module.exports = { statsQuery, publicProfileQuery,languageStatsQuery };

@@ -1,29 +1,30 @@
-import fetch from "node-fetch";
 
 const baseOptions = {
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  },
+};
+
+async function getRequest(url, options) {
+  const response = await fetch(url, {
+    method: "GET",
+    ...baseOptions,
+    ...options,
+  });
+  return await response.json();
 }
 
-export async function getRequest(url, options) {
-    return await (await fetch(url, {
-        method: 'GET',
-        ...baseOptions,
-        ...options
-    })).json()
+async function postRequest(url, options) {
+  const response = await fetch(url, {
+    method: "POST",
+    ...baseOptions,
+    ...options,
+  });
+  return await response.json();
 }
 
-export async function postRequest(url, options) {
-    return await (await fetch(url, {
-        method: 'POST',
-        ...baseOptions,
-        ...options
-    })).json()
-}
-
-export {
-    getRequest,
-    postRequest
-}
+module.exports = {
+  getRequest,
+  postRequest,
+};
