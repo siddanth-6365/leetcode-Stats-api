@@ -2,8 +2,12 @@ const {
   statsQuery,
   publicProfileQuery,
   languageStatsQuery,
+  userContestRankingInfoQuery,
+  userBadgesQuery,
+  userProfileCalendarQuery,
+  recentAcSubmissionsQuery,
+  getStreakCounterQuery,
 } = require("../queries/index");
-const { postRequest } = require("../httpRequests/index.js");
 
 async function handleRequest(username, query) {
   try {
@@ -20,7 +24,6 @@ async function handleRequest(username, query) {
         },
       }),
     });
-
     const data = await response.json();
     return data.data;
   } catch (e) {
@@ -34,20 +37,61 @@ async function getLeetCodeStats(username) {
   });
 }
 
-async function getLeetCodePublicProfile(username) {
+async function getPublicProfile(username) {
   return await handleRequest(username, publicProfileQuery).then((data) => {
     return data.matchedUser;
   });
 }
 
-async function getLeetCodeLanguageStats(username) {
+async function getLanguageStats(username) {
   return await handleRequest(username, languageStatsQuery).then((data) => {
     return data.matchedUser;
   });
 }
 
+async function getContestRankingInfo(username) {
+  return await handleRequest(username, userContestRankingInfoQuery).then(
+    (data) => {
+      return data;
+    }
+  );
+}
+
+async function getUserBadges(username) {
+  return await handleRequest(username, userBadgesQuery).then((data) => {
+    return data.matchedUser;
+  });
+}
+
+async function getUserProfileCalendar(username) {
+  return await handleRequest(username, userProfileCalendarQuery).then(
+    (data) => {
+      return data.matchedUser.userCalendar;
+    }
+  );
+}
+
+async function getRecentAcSubmissions(username) {
+  return await handleRequest(username, recentAcSubmissionsQuery).then(
+    (data) => {
+      return data;
+    }
+  );
+}
+
+async function getStreakCounter(username) {
+  return await handleRequest(username, getStreakCounterQuery).then((data) => {
+    return data;
+  });
+}
+
 module.exports = {
   getLeetCodeStats,
-  getLeetCodePublicProfile,
-  getLeetCodeLanguageStats,
+  getPublicProfile,
+  getLanguageStats,
+  getContestRankingInfo,
+  getUserBadges,
+  getUserProfileCalendar,
+  getRecentAcSubmissions,
+  getStreakCounter,
 };

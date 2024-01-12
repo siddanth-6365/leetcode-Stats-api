@@ -3,11 +3,11 @@ const app = express();
 const bodyParser = require("body-parser");
 const port = 3000;
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-// /profile/siddanth6365
+// /queryName and need to pass in a username in req.body in most routes
 app.use("/", require("./routes/index"));
 
 app.listen(port, () => {
