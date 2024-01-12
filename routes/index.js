@@ -2,6 +2,7 @@ const router = require("express").Router();
 const {
   getLeetCodeStats,
   getLeetCodePublicProfile,
+  getLeetCodeLanguageStats,
 } = require("../controllers/index");
 
 router.get("/profile/:username", async (req, res) => {
@@ -56,8 +57,9 @@ router.get("/profile/:username", async (req, res) => {
   }
 });
 
-router.get("/publicProfile/:username", async (req, res) => {
-  const { username } = req.params;
+router.get("/publicProfile", async (req, res) => {
+  const { username } = req.body;
+
   try {
     const data = await getLeetCodePublicProfile(username);
     //example response :
@@ -98,5 +100,45 @@ router.get("/publicProfile/:username", async (req, res) => {
     res.send("error while fetching data in /publicProfile/:username");
   }
 });
+
+router.get("/languageStats", async (req, res) => {
+  const { username } = req.body;
+  try {
+    const data = await getLeetCodeLanguageStats(username);
+    //example response :
+    /* {
+      {
+    "data": {
+        "languageProblemCount": [
+            {
+                "languageName": "C++",
+                "problemsSolved": 65
+            },
+            {
+                "languageName": "Java",
+                "problemsSolved": 1
+            },
+            {
+                "languageName": "C",
+                "problemsSolved": 1
+            },
+            {
+                "languageName": "JavaScript",
+                "problemsSolved": 1
+            }
+        ]
+    }
+}
+     */
+    res.json({
+      data,
+    });
+  } catch (err) {
+    console.log("error: ", err);
+    res.send("error while fetching data in /publicProfile/:username");
+  }
+});
+
+
 
 module.exports = router;

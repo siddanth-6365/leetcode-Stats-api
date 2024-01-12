@@ -1,4 +1,8 @@
-const { statsQuery, publicProfileQuery } = require("../queries/index");
+const {
+  statsQuery,
+  publicProfileQuery,
+  languageStatsQuery,
+} = require("../queries/index");
 const { postRequest } = require("../httpRequests/index.js");
 
 async function handleRequest(username, query) {
@@ -36,4 +40,14 @@ async function getLeetCodePublicProfile(username) {
   });
 }
 
-module.exports = { getLeetCodeStats, getLeetCodePublicProfile };
+async function getLeetCodeLanguageStats(username) {
+  return await handleRequest(username, languageStatsQuery).then((data) => {
+    return data.matchedUser;
+  });
+}
+
+module.exports = {
+  getLeetCodeStats,
+  getLeetCodePublicProfile,
+  getLeetCodeLanguageStats,
+};
