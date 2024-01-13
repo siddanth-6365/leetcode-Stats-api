@@ -11,9 +11,21 @@ const {
 } = require("../controllers/index");
 
 router.get("/", (req, res) => {
-  res.send(
-    "Welcome to the Leetcode RESTful API - ALL endpoints are GET requests and all endpoints require a username in the body of the request you can get data from the following endpoints: /profile, /publicProfile, /languageStats, /userContestRankingInfo, /userBadges, /userProfileCalendar, /streakCounter, /recentAcSubmissions and many more, please refer https://leetcode-restful-api.vercel.app/ApiDocs/setup for more info"
-  );
+  res.json({
+    message: "Welcome to the Leetcode RESTful API",
+    info: "For more details, please refer to the API documentation: https://leetcode-restful-api.vercel.app/ApiDocs/setup",
+    endpoints: [
+      "/profile",
+      "/publicProfile",
+      "/languageStats",
+      "/userContestRankingInfo",
+      "/userBadges",
+      "/userProfileCalendar",
+      "/streakCounter",
+      "/recentAcSubmissions",
+      // Add more endpoints as needed
+    ],
+  });
 });
 
 router.get("/profile/:username", async (req, res) => {
