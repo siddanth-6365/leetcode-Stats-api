@@ -13,7 +13,9 @@ const {
 router.get("/", (req, res) => {
   res.json({
     message: "Welcome to the Leetcode RESTful API",
+    github: "https://github.com/siddanth-6365/leetcode-Stats-api",
     info: "For more details, please refer to the API documentation: https://leetcode-restful-api.vercel.app/ApiDocs/setup",
+    note: "All you need is to pass username in req.body",
     endpoints: [
       "/profile",
       "/publicProfile",
