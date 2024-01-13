@@ -10,8 +10,66 @@ const {
   getStreakCounter,
 } = require("../controllers/index");
 
+router.get("/", (req, res) => {
+  res.send(
+    "Welcome to the Leetcode RESTful API - ALL endpoints are GET requests and all endpoints require a username in the body of the request you can get data from the following endpoints: /profile, /publicProfile, /languageStats, /userContestRankingInfo, /userBadges, /userProfileCalendar, /streakCounter, /recentAcSubmissions and many more, please refer https://leetcode-restful-api.vercel.app/ApiDocs/setup for more info"
+  );
+});
+
 router.get("/profile/:username", async (req, res) => {
   const { username } = req.params;
+  try {
+    const data = await getLeetCodeStats(username);
+    // example response
+    /* {
+"data": {
+"problemsSolvedBeatsStats": [
+{
+"difficulty": "Easy",
+"percentage": 65.03
+},
+{
+"difficulty": "Medium",
+"percentage": 69.21
+},
+{
+"difficulty": "Hard",
+"percentage": null
+}
+],
+"submitStatsGlobal": {
+"acSubmissionNum": [
+{
+"difficulty": "All",
+"count": 68
+},
+{
+"difficulty": "Easy",
+"count": 31
+},
+{
+"difficulty": "Medium",
+"count": 36
+},
+{
+"difficulty": "Hard",
+"count": 1
+}
+]
+}
+}
+} */
+    res.json({
+      data,
+    });
+  } catch (err) {
+    console.log("error: ", err);
+    res.send("error while fetching data in /profile/:username");
+  }
+});
+
+router.get("/profile", async (req, res) => {
+  const { username } = req.body;
   try {
     const data = await getLeetCodeStats(username);
     // example response
