@@ -348,19 +348,19 @@ router.get("/streakCounter", async (req, res) => {
 });
 
 // NEED TO DO THIS
-// router.get("/recentAcSubmissions", async (req, res) => {
-//   const { username } = req.body;
-//   try {
-//     const data = await getRecentAcSubmissions(username);
-//     res.json({
-//       data,
-//     });
-//   } catch (err) {
-//     console.error("Error fetching recent AC submissions:", err);
-//     res.status(500).json({
-//       error: "Error while fetching data for recentAcSubmissions",
-//     });
-//   }
-// });
+router.get("/recentAcSubmissions", async (req, res) => {
+  const { username } = req.body;
+  try {
+    const data = await getRecentAcSubmissions(username);
+    res.json({
+      data,
+    });
+  } catch (err) {
+    console.error("Error fetching recent AC submissions:", err);
+    res.status(500).json({
+      error: "Error while fetching data for recentAcSubmissions",
+    });
+  }
+});
 
 module.exports = router;
