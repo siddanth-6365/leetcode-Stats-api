@@ -24,6 +24,31 @@ async function handleRequest(username, query) {
         },
       }),
     });
+    console.log(response)
+    const data = await response.json();
+    return data.data;
+  } catch (e) {
+    console.error("error:", e);
+  }
+}
+
+async function handleRequest2(username, query,limit) {
+  try {
+    const response = await fetch("https://leetcode.com/graphql", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query,
+        variables: {
+          username: username,
+          limit:limit
+        },
+      }),
+    });
+    console.log(response)
     const data = await response.json();
     return data.data;
   } catch (e) {
@@ -71,8 +96,8 @@ async function getUserProfileCalendar(username) {
   );
 }
 
-async function getRecentAcSubmissions(username) {
-  return await handleRequest(username, recentAcSubmissionsQuery).then(
+async function getRecentAcSubmissions(username,limit) {
+  return await handleRequest2(username, recentAcSubmissionsQuery,limit).then(
     (data) => {
       return data;
     }

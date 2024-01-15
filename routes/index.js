@@ -349,9 +349,9 @@ router.get("/streakCounter", async (req, res) => {
 
 // NEED TO DO THIS
 router.get("/recentAcSubmissions", async (req, res) => {
-  const { username } = req.body;
+  const { username,limit } = req.body;
   try {
-    const data = await getRecentAcSubmissions(username);
+    const data = await getRecentAcSubmissions(username,limit);
     res.json({
       data,
     });
